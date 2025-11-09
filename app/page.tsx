@@ -8,10 +8,10 @@ import SessionButton from "../components/SessionButton"
 import QuoteDisplay from "../components/QuoteDisplay"
 
 const sessionLinks = [
-  { label: "SESSION-1", href: "" }, // Add actual link here to enable redirect
-  { label: "SESSION-2", href: "" }, // Add actual link here to enable redirect
-  { label: "SESSION-3", href: "" }, // Add actual link here to enable redirect
-  { label: "SESSION-4", href: "" }, // Add actual link here to enable redirect
+  { label: "SESSION-1", href: "https://session.codeskytz.site" }, // Add actual link here to enable redirect
+  { label: "SESSION-2", href: "https://session1.codeskytz.site" }, // Add actual link here to enable redirect
+  { label: "SESSION-3", href: "https://session2.codeskytz.site" }, // Add actual link here to enable redirect
+  { label: "SESSION-4", href: "https://session3.codeskytz.site" }, // Add actual link here to enable redirect
 ]
 
 const quotes = [
@@ -24,6 +24,9 @@ const quotes = [
     text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
     author: "Nelson Mandela",
   },
+  
+  {text: "beti sana maisha bado magumu " ,author :"elitechwiz"}
+  ,
 ]
 
 const musicTracks = [
