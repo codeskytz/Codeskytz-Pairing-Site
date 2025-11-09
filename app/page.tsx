@@ -98,7 +98,7 @@ const disclaimerVariants = {
 
 export default function Page() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0)
-  const [showDisclaimer, setShowDisclaimer] = useState(true)
+  const [showDisclaimer, setShowDisclaimer] = useState(false)
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
   const audioRef = useRef<HTMLAudioElement>(null)
 
