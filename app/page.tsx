@@ -232,7 +232,7 @@ export default function Page() {
               transition: { type: "spring", stiffness: 300, damping: 10 },
             }}
           >
-            CodeskyTz pairing site
+            CodeskyTz-MD 
           </motion.h1>
 
           <QuoteDisplay quote={quotes[currentQuoteIndex]} />

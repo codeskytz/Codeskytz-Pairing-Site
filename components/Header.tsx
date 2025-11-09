@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
-const LOGO_URL = "" // Add your company logo URL here (e.g., "https://example.com/logo.png")
+const LOGO_URL = "https://i.ibb.co/ymNQnJDz/Whats-App-Image-2025-11-08-at-19-29-06.jpg" // Add your company logo URL here (e.g., "https://example.com/logo.png")
 
 const Header: React.FC = () => {
   return (
@@ -34,11 +34,11 @@ const Header: React.FC = () => {
               <span className="text-white font-bold text-lg">CT</span>
             )}
           </motion.div>
-          <h2 className="text-xl font-semibold text-gray-100 group-hover:text-cyan-400 transition-colors">CodeskyTz</h2>
+          <h2 className="text-xl font-semibold text-gray-100 group-hover:text-cyan-400 transition-colors">CodeskyTz-Md</h2>
         </Link>
 
         <motion.a
-          href="https://github.com/codeskytz"
+          href="https://github.com/codeskytz/codeskytz-md"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all duration-300 text-gray-100 hover:shadow-lg hover:shadow-cyan-500/20"

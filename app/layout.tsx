@@ -7,17 +7,17 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'CODESKYTZ-MD',
+  description: 'A multidevice whatsapp bot',
+  generator: 'codeskytz.site',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: 'https://i.ibb.co/ymNQnJDz/Whats-App-Image-2025-11-08-at-19-29-06.jpg',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: 'https://i.ibb.co/ymNQnJDz/Whats-App-Image-2025-11-08-at-19-29-06.jpg',
         media: '(prefers-color-scheme: dark)',
       },
       {
