@@ -10,7 +10,7 @@ import QuoteDisplay from "../components/QuoteDisplay"
 // Donate Modal Component
 const DonateModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [formData, setFormData] = useState({
-    amount: 500,
+    amount: 200,
     customerName: '',
     customerEmail: '',
     description: 'Support CodeskyTz-MD development'
@@ -106,17 +106,17 @@ const DonateModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Amount (TZS)
-                </label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Amount (TZS) - Minimum 200 TZS
+                  </label>
                 <input
                   type="number"
                   name="amount"
                   value={formData.amount}
                   onChange={handleInputChange}
-                  min="100"
+                  min="200"
                   className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter amount in TZS"
+                  placeholder="Minimum 200 TZS"
                   required
                 />
               </div>
