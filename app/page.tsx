@@ -7,6 +7,195 @@ import Footer from "../components/Footer"
 import SessionButton from "../components/SessionButton"
 import QuoteDisplay from "../components/QuoteDisplay"
 
+// Donate Modal Component
+const DonateModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const [formData, setFormData] = useState({
+    amount: 1000,
+    customerName: '',
+    customerEmail: '',
+    description: 'Support CodeskyTz-MD development'
+  })
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setError('')
+
+    try {
+      const response = await fetch('https://api.codeskytz.site/api/payments/generate-link', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'codeskytz-api-key': 'codeskytz-B7hbs5wsc09h',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount: formData.amount,
+          description: formData.description,
+          customerName: formData.customerName,
+          customerEmail: formData.customerEmail
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.success && data.paymentLink) {
+        window.location.href = data.paymentLink
+      } else {
+        setError('Failed to generate payment link. Please try again.')
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'amount' ? parseInt(value) || 0 : value
+    }))
+  }
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <motion.div
+            className="bg-gray-900/95 backdrop-blur-xl border border-white/20 rounded-2xl p-6 w-full max-w-md shadow-2xl"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-white">Support Our Project</h3>
+              <button
+                onClick={onClose}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Amount (TZS)
+                </label>
+                <input
+                  type="number"
+                  name="amount"
+                  value={formData.amount}
+                  onChange={handleInputChange}
+                  min="100"
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter amount in TZS"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  name="customerName"
+                  value={formData.customerName}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="customerEmail"
+                  value={formData.customerEmail}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Message (Optional)
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  rows={3}
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  placeholder="Leave a message..."
+                />
+              </div>
+
+              {error && (
+                <div className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                  {error}
+                </div>
+              )}
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center justify-center gap-2"
+                >
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                      Donate
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 const sessionLinks = [
   { label: "Server 1", href: "https://server1.codeskytz.site" },
   { label: "Server 2", href: "https://server2.codeskytz.site" },
@@ -109,6 +298,7 @@ export default function Page() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0)
   const [showDisclaimer, setShowDisclaimer] = useState(false)
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
+  const [showDonateModal, setShowDonateModal] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   // Quote rotation
@@ -203,6 +393,20 @@ export default function Page() {
     playAudio()
   }, [currentTrackIndex])
 
+  // Handle donate modal
+  useEffect(() => {
+    const handleOpenDonateModal = () => setShowDonateModal(true)
+    const handleCloseDonateModal = () => setShowDonateModal(false)
+
+    window.addEventListener('open-donate-modal', handleOpenDonateModal)
+    window.addEventListener('close-donate-modal', handleCloseDonateModal)
+
+    return () => {
+      window.removeEventListener('open-donate-modal', handleOpenDonateModal)
+      window.removeEventListener('close-donate-modal', handleCloseDonateModal)
+    }
+  }, [])
+
   return (
     <div className="relative flex flex-col min-h-screen bg-gray-950 font-sans text-gray-100">
       <div
@@ -232,6 +436,12 @@ export default function Page() {
       </div>
 
       <Header />
+
+      {/* Donate Modal */}
+      <DonateModal
+        isOpen={showDonateModal}
+        onClose={() => setShowDonateModal(false)}
+      />
       <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 z-10">
         <div className="w-full max-w-2xl text-center">
           <motion.h1
