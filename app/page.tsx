@@ -10,7 +10,7 @@ import QuoteDisplay from "../components/QuoteDisplay"
 // Donate Modal Component
 const DonateModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [formData, setFormData] = useState({
-    amount: 1000,
+    amount: 500,
     customerName: '',
     customerEmail: '',
     description: 'Support CodeskyTz-MD development'
@@ -24,11 +24,9 @@ const DonateModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
     setError('')
 
     try {
-      const response = await fetch('https://api.codeskytz.site/api/payments/generate-link', {
+      const response = await fetch('/api/donate', {
         method: 'POST',
         headers: {
-          'accept': 'application/json',
-          'codeskytz-api-key': 'codeskytz-B7hbs5wsc09h',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -39,15 +37,31 @@ const DonateModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
         })
       })
 
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
 
       if (data.success && data.paymentLink) {
         window.location.href = data.paymentLink
       } else {
-        setError('Failed to generate payment link. Please try again.')
+        setError(data.message || 'Failed to generate payment link. Please try again.')
       }
     } catch (err) {
-      setError('Network error. Please check your connection and try again.')
+      console.error('Donation error:', err)
+      if (err instanceof Error) {
+        if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+          setError('Network error. Please check your internet connection and try again.')
+        } else if (err.message.includes('HTTP error!')) {
+          setError('Server error. Please try again later.')
+        } else {
+          setError(err.message || 'An unexpected error occurred. Please try again.')
+        }
+      } else {
+        setError('An unexpected error occurred. Please try again.')
+      }
     } finally {
       setIsLoading(false)
     }
@@ -601,3 +615,4 @@ export default function Page() {
     </div>
   )
 }
+
