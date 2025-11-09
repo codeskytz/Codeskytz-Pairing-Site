@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: 'https://i.ibb.co/ymNQnJDz/Whats-App-Image-2025-11-08-at-19-29-06.jpg',
+        url: '/icon-light.jpg',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: 'https://i.ibb.co/ymNQnJDz/Whats-App-Image-2025-11-08-at-19-29-06.jpg',
+        url: '/icon-light.jpg',
         media: '(prefers-color-scheme: dark)',
       },
       {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/icon-light.jpg',
   },
 }
 
