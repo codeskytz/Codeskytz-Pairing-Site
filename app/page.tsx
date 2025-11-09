@@ -8,10 +8,20 @@ import SessionButton from "../components/SessionButton"
 import QuoteDisplay from "../components/QuoteDisplay"
 
 const sessionLinks = [
-  { label: "SESSION-1", href: "https://session.codeskytz.site" }, // Add actual link here to enable redirect
-  { label: "SESSION-2", href: "https://session1.codeskytz.site" }, // Add actual link here to enable redirect
-  { label: "SESSION-3", href: "https://session2.codeskytz.site" }, // Add actual link here to enable redirect
-  { label: "SESSION-4", href: "https://session3.codeskytz.site" }, // Add actual link here to enable redirect
+  { label: "Server 1", href: "https://server1.codeskytz.site" },
+  { label: "Server 2", href: "https://server2.codeskytz.site" },
+  { label: "Server 3", href: "https://server3.codeskytz.site" },
+  { label: "Server 4", href: "https://server4.codeskytz.site" },
+]
+
+const deploymentOptions = [
+  { id: 'heroku', label: 'Heroku', href: 'https://www.heroku.com', icon: '/heroku.png' },
+  { id: 'render', label: 'Render', href: 'https://render.com', icon: '/render.png' },
+  { id: 'koyeb', label: 'Koyeb', href: 'https://www.koyeb.com', icon: '/placeholder-logo.png' },
+  { id: 'sevalla', label: 'Sevalla', href: '#', icon: '/sevalla.png' },
+  { id: 'railway', label: 'Railway', href: 'https://railway.app', icon: '/railway.png' },
+  { id: 'termux', label: 'Termux', href: '#', icon: '/termux.jpeg' },
+  { id: 'vps', label: 'VPS', href: '#', icon: '/vps.png' },
 ]
 
 const quotes = [
@@ -36,20 +46,8 @@ const musicTracks = [
   "https://cdn.pixabay.com/audio/2022/11/22/audio_31360fbd17.mp3",
   "https://cdn.pixabay.com/audio/2023/02/28/audio_c2f0d85b5f.mp3",
   "https://cdn.pixabay.com/audio/2022/10/25/audio_c8e7e1e6e5.mp3",
-  "https://cdn.pixabay.com/audio/2023/09/04/audio_84af5b3b29.mp3",
-  "https://cdn.pixabay.com/audio/2022/08/23/audio_d1718ab41b.mp3",
+  "https://cdn.pixabay.com/audio/2022/10/25/audio_c8e7e1e6e5.mp3",
 ]
-
-const buttonContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
-    },
-  },
-}
 
 const titleVariants = {
   hidden: { opacity: 0, y: -60, scale: 0.7 },
@@ -92,6 +90,17 @@ const disclaimerVariants = {
         delay: 0.2,
         duration: 0.3,
       },
+    },
+  },
+}
+
+const buttonContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.3,
     },
   },
 }
@@ -235,7 +244,7 @@ export default function Page() {
               transition: { type: "spring", stiffness: 300, damping: 10 },
             }}
           >
-            CodeskyTz-MD 
+            CODESKYTZ-MD
           </motion.h1>
 
           <QuoteDisplay quote={quotes[currentQuoteIndex]} />
@@ -259,6 +268,16 @@ export default function Page() {
           </AnimatePresence>
 
           <motion.div
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
+          >
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Session Servers</h2>
+            <p className="text-gray-300 text-sm md:text-base">Choose your preferred server to start your session</p>
+          </motion.div>
+
+          <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 gap-6"
             variants={buttonContainerVariants}
             initial="hidden"
@@ -268,6 +287,80 @@ export default function Page() {
               <SessionButton key={index} href={link.href}>
                 {link.label}
               </SessionButton>
+            ))}
+          </motion.div>
+
+          {/* Deployment options cards (enhanced design) */}
+          <motion.div
+            className="text-center mt-16 mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.3 }}
+          >
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Deploy On</h2>
+            <p className="text-gray-300 text-sm md:text-base">Choose your deployment platform</p>
+          </motion.div>
+
+          <motion.div
+            className="mt-12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            {deploymentOptions.map((opt, index) => (
+              <motion.div
+                key={opt.id}
+                className="group relative overflow-hidden bg-gradient-to-br from-white/12 via-white/8 to-white/6 backdrop-blur-xl border border-white/25 rounded-3xl shadow-2xl hover:shadow-3xl hover:shadow-cyan-400/30 transition-all duration-500 p-6 sm:p-8"
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: index * 0.15, duration: 0.5, type: "spring", stiffness: 100 }}
+                whileHover={{
+                  scale: 1.05,
+                  rotateY: 3,
+                  rotateX: 2,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)"
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* Animated background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/8 via-cyan-400/6 to-purple-500/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+
+                {/* Glowing border effect */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+
+                <div className="relative z-10">
+                  {/* Header with icon and title */}
+                  <div className="text-center mb-4">
+                    <div className="flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18 xl:w-20 xl:h-20 rounded-2xl bg-gradient-to-br from-white/25 to-white/15 shadow-xl group-hover:shadow-2xl transition-all duration-300 border border-white/20 mb-3 mx-auto">
+                      <img src={opt.icon} alt={opt.label} className="w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14 object-contain drop-shadow-lg" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl sm:text-2xl xl:text-3xl font-bold text-white mb-2 group-hover:text-cyan-100 transition-colors duration-300 break-words leading-tight">{opt.label}</h3>
+                      <div className="w-12 h-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300 mx-auto" />
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm sm:text-base xl:text-lg text-gray-300 group-hover:text-gray-200 transition-colors duration-300 mb-6 leading-relaxed">
+                    Deploy your bot on {opt.label} 
+                  </p>
+
+                  {/* Action button */}
+                  <div className="flex justify-end">
+                    <a
+                      href={opt.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 hover:from-blue-700 hover:via-cyan-600 hover:to-blue-800 text-white rounded-xl text-sm sm:text-base xl:text-lg font-semibold shadow-lg hover:shadow-xl hover:shadow-cyan-400/40 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                    >
+                      <span>View Docs</span>
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>

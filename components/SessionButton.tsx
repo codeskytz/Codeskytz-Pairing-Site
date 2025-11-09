@@ -15,7 +15,7 @@ const buttonVariants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200,
       damping: 15,
     },
@@ -36,12 +36,12 @@ const SessionButton: React.FC<SessionButtonProps> = ({ href, children }) => {
   return (
     <motion.button
       onClick={handleClick}
-      className="block w-full px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold text-lg shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+      className="block w-full px-8 py-4 rounded-xl bg-gradient-to-br from-blue-600 via-cyan-500 to-blue-700 hover:from-blue-700 hover:via-cyan-600 hover:to-blue-800 text-white font-bold text-lg shadow-2xl hover:shadow-cyan-400/60 transition-all duration-300 transform disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group border border-white/20"
       variants={buttonVariants}
       whileHover={{
         scale: href ? 1.08 : 1,
         rotate: href ? [0, -2, 2, 0] : 0,
-        boxShadow: href ? "0 20px 40px rgba(6, 182, 212, 0.4)" : "0 10px 20px rgba(6, 182, 212, 0.2)",
+        boxShadow: href ? "0 25px 50px rgba(6, 182, 212, 0.5)" : "0 15px 30px rgba(6, 182, 212, 0.3)",
         transition: { type: "spring", stiffness: 400, damping: 10 },
       }}
       whileTap={{ scale: href ? 0.93 : 1 }}
