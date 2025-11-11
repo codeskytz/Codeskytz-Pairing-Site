@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
         amount: body.amount,
         description: body.description,
         customerName: body.customerName,
-        customerEmail: body.customerEmail
+        customerEmail: body.customerEmail,
+        returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}`
       })
     })
 
