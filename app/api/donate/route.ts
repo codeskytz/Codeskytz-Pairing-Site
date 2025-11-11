@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         description: body.description,
         customerName: body.customerName,
         customerEmail: body.customerEmail,
-        returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}`
+        returnUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://codesky-pairing.vercel.app'}`
       })
     })
 
